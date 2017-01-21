@@ -9,14 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#66CDAA" />
-    //tools:context="com.jungwonlee.bmn_project.Init_Activity">
+    tools:context="com.jungwonlee.bmn_project.Init_Activity"
+    android:background="#66CDAA">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/BMN_init_image_edit"
-        android:id="@+id/imageView5"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
 </RelativeLayout>
