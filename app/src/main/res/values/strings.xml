@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">BMN_project</string>
+
+    <string name="title_activity_init_screen">init_screenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>
