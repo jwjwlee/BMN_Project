@@ -1,9 +1,9 @@
 package com.jungwonlee.bmn_project;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
-public class Init_Activity extends AppCompatActivity{
+public class Init_Activity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
