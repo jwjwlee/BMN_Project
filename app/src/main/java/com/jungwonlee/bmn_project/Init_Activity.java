@@ -16,4 +16,8 @@ public class Init_Activity extends Activity {
         Intent intent  = new Intent(getApplicationContext(), navi_Activity.class);
         startActivity(intent);
     }
+    public void onButtonHistroy(View v){
+        Intent intent  = new Intent(getApplicationContext(), history.class);
+        startActivity(intent);
+    }
 }
