@@ -13,7 +13,7 @@ public class Init_Activity extends Activity {
         setContentView(R.layout.activity_init_);
     }
     public void onButtonNavi(View v){
-        Intent intent  = new Intent(getApplicationContext(), Search_Activity.class);
+        Intent intent  = new Intent(getApplicationContext(), Search.class);
         startActivity(intent);
     }
     public void onButtonHistroy(View v){
