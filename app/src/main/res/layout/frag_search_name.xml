@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_search_"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.jungwonlee.bmn_project.Search"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_marginTop="0dp"
+    android:weightSum="1"
+    android:background="#88BDBDBD">
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:columnCount="2"
+        android:rowCount="2"
+        android:layout_weight="2.73">
+
+        <EditText
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:hint="출발지 검색"
+            android:ems="10"
+            android:layout_marginTop="0dp"
+            android:id="@+id/search1"
+            android:background="@drawable/border"
+            android:textSize="16sp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:textColor="#8C8C8C"
+            android:layout_width="260dp"
+            android:gravity="left"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center" />
+
+        <Button
+            android:text="확인"
+            android:id="@+id/button5"
+            android:layout_marginLeft="4dp"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:layout_gravity="left"
+            android:background="#A6A6A6"
+            android:layout_height="30dp"
+            android:layout_width="45dp" />
+
+        <EditText
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:hint="도착지 검색"
+            android:ems="10"
+            android:layout_marginTop="0dp"
+            android:id="@+id/search2"
+            android:background="@drawable/border"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:textSize="16sp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:textColor="#8C8C8C"
+            android:layout_width="260dp"
+            android:gravity="left"
+            android:layout_gravity="center" />
+
+        <Button
+            android:text="확인"
+            android:id="@+id/button6"
+            android:layout_marginLeft="4dp"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:layout_gravity="center"
+            android:background="#A6A6A6"
+            android:layout_height="30dp"
+            android:layout_width="45dp" />
+
+    </GridLayout>
+
+</LinearLayout>

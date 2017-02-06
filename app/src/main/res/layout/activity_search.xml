@@ -3,75 +3,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_search_"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.jungwonlee.bmn_project.Search_Activity"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:layout_marginTop="0dp"
-    android:weightSum="1"
-    android:background="#747474">
-
-    <GridLayout
-        android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    
+    <FrameLayout
+        android:id="@+id/container3"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:columnCount="2"
-        android:rowCount="4"
-        android:layout_weight="2.73">
+        android:layout_weight="3.5">
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:name="com.jungwonlee.bmn_project.frag_search_name">
+        </fragment>
+    </FrameLayout>
 
-        <EditText
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:hint="출발지 검색"
-            android:ems="10"
-            android:layout_marginTop="4dp"
-            android:id="@+id/search1"
-            android:background="@drawable/border"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:textSize="20sp"
-            android:paddingTop="7dp"
-            android:paddingBottom="7dp"
-            android:paddingLeft="5dp"
-            android:textColor="#8C8C8C"
-            android:layout_width="260dp" />
+    <FrameLayout
+        android:id="@+id/container4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:name="com.jungwonlee.bmn_project.frag_search_map">
+        </fragment>
+    </FrameLayout>
 
-        <Button
-            android:text="확인"
-            android:layout_height="wrap_content"
-            android:id="@+id/button5"
-            android:layout_width="52dp"
-            android:layout_marginLeft="4dp"
-            android:gravity="center" />
 
-        <EditText
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:hint="도착지 검색"
-            android:ems="10"
-            android:layout_marginTop="4dp"
-            android:id="@+id/search2"
-            android:background="@drawable/border"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:textSize="20sp"
-            android:paddingTop="7dp"
-            android:paddingBottom="7dp"
-            android:paddingLeft="5dp"
-            android:textColor="#8C8C8C"
-            android:layout_width="260dp" />
 
-        <Button
-            android:text="확인"
-            android:layout_height="wrap_content"
-            android:id="@+id/button6"
-            android:layout_marginLeft="4dp"
-            android:layout_width="52dp"
-            android:gravity="center" />
-
-    </GridLayout>
 
 </LinearLayout>

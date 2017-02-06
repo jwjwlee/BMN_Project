@@ -31,7 +31,6 @@
             android:value="@integer/google_play_services_version" />
 
         <activity android:name=".history" />
-        <activity android:name=".Search_activity" />
         <activity android:name=".Search"></activity>
     </application>
 
