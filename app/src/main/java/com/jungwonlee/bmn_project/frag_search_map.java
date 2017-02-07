@@ -24,7 +24,7 @@ public class frag_search_map extends Fragment{
         activity.ViewMap();
         ImageButton cur_search_button = (ImageButton) rootView.findViewById(R.id.imageButton);
 
-        //현재위치 받아오기.
+        //현재위치로 화면을 옮기기
         cur_search_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

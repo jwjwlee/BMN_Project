@@ -6,6 +6,7 @@ import android.widget.FrameLayout;
 
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.skp.Tmap.TMapMarkerItem;
 import com.skp.Tmap.TMapPoint;
 import com.skp.Tmap.TMapView;
 
@@ -21,6 +22,7 @@ public class Search extends AppCompatActivity {
 
     public void ViewMap(){
         // RelativeLayout relativeLayout = new RelativeLayout(this);
+
         FrameLayout frameLayout = new FrameLayout(this);
         TMapView tMapView = new TMapView(this);
 
@@ -32,6 +34,11 @@ public class Search extends AppCompatActivity {
         tMapView.setLanguage(TMapView.LANGUAGE_KOREAN);
         tMapView.setTrackingMode(true);
         tMapView.setSightVisible(true);
+
+        //현재위치로 초기화
+        tMapView.setLocationPoint(126.651933, 37.449979);
+
+
         frameLayout.addView(tMapView);
         setContentView(frameLayout);
         // relativeLayout.addView(tMapView);
@@ -42,13 +49,18 @@ public class Search extends AppCompatActivity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
-
+    //현재위치로 화면을 옮기는 함수.
     public void CurLoc(){
-        TMapView tmapView = new TMapView(this);
-        TMapPoint tpoint = tmapView.getLocationPoint();
+        FrameLayout frameLayout = new FrameLayout(this);
+        TMapView tMapView = new TMapView(this);
+        TMapMarkerItem tItem = new TMapMarkerItem();
+
+        TMapPoint tpoint = tMapView.getLocationPoint();
         double Latitude = tpoint.getLatitude();
         double Longitude = tpoint.getLongitude();
-        tmapView.setLocationPoint(37.449979, 126.651933);
+        //tMapView.setLocationPoint(126.651933, 37.449979);
+        tItem.setTMapPoint(tpoint);
+
 
     }
 }
