@@ -23,14 +23,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
+
         <fragment
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:name="com.jungwonlee.bmn_project.frag_search_map">
         </fragment>
+
     </FrameLayout>
-
-
 
 
 </LinearLayout>
