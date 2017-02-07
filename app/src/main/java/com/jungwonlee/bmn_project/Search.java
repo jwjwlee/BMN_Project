@@ -1,11 +1,12 @@
 package com.jungwonlee.bmn_project;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
 
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.skp.Tmap.TMapPoint;
 import com.skp.Tmap.TMapView;
 
 public class Search extends AppCompatActivity {
@@ -40,5 +41,14 @@ public class Search extends AppCompatActivity {
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    }
+
+    public void CurLoc(){
+        TMapView tmapView = new TMapView(this);
+        TMapPoint tpoint = tmapView.getLocationPoint();
+        double Latitude = tpoint.getLatitude();
+        double Longitude = tpoint.getLongitude();
+        tmapView.setLocationPoint(37.449979, 126.651933);
+
     }
 }
