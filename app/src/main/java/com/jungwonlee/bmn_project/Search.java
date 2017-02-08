@@ -23,17 +23,11 @@ import com.skp.Tmap.TMapView;
 public class Search extends AppCompatActivity implements LocationListener {
 
     private GoogleApiClient client;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
     private GoogleApiClient client2;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
         client2 = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
@@ -54,61 +48,42 @@ public class Search extends AppCompatActivity implements LocationListener {
 
         //현재위치로 초기화
        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        double Longitude , Latitude;
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+
             return;
         }
-        lm.requestLocationUpdates(lm.NETWORK_PROVIDER, 0, 0, this);
-        double Longitude , Latitude;
-        Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        Latitude = location.getLatitude();
-        Longitude = location.getLongitude();
+        if(lm.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            lm.requestLocationUpdates(lm.GPS_PROVIDER, 1000, 0, this);
+            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            Latitude = location.getLatitude();
+            Longitude = location.getLongitude();
+        }
+        else{
+            lm.requestLocationUpdates(lm.NETWORK_PROVIDER,1000 ,0 ,this);
+            Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            Latitude = location.getLatitude();
+            Longitude = location.getLongitude();
+        }
         tMapView.setLocationPoint(Longitude, Latitude);
         frameLayout.addView(tMapView);
         setContentView(frameLayout);
 
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-    //현재위치로 화면을 옮기는 함수.
-    public void CurLoc() {
-        FrameLayout frameLayout = new FrameLayout(this);
-        TMapView tMapView = new TMapView(this);
-        TMapMarkerItem tItem = new TMapMarkerItem();
 
-        TMapPoint tpoint = tMapView.getLocationPoint();
-        double Latitude = tpoint.getLatitude();
-        double Longitude = tpoint.getLongitude();
-        //tMapView.setLocationPoint(126.651933, 37.449979);
-        tItem.setTMapPoint(tpoint);
-
-
-    }
     //LocationListener
     @Override
     public void onLocationChanged(Location location) {
         LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+
             return;
         }
-        lm.removeUpdates(this);
+       // lm.removeUpdates(this);
     }
 
     @Override
@@ -125,11 +100,21 @@ public class Search extends AppCompatActivity implements LocationListener {
     public void onProviderDisabled(String s) {
 
     }
+    //현재위치로 화면을 옮기는 함수.
+    public void CurLoc() {
+        FrameLayout frameLayout = new FrameLayout(this);
+        TMapView tMapView = new TMapView(this);
+        TMapMarkerItem tItem = new TMapMarkerItem();
 
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
+        TMapPoint tpoint = tMapView.getLocationPoint();
+        double Latitude = tpoint.getLatitude();
+        double Longitude = tpoint.getLongitude();
+        tItem.setTMapPoint(tpoint);
+
+
+    }
+
+
     public Action getIndexApiAction() {
         Thing object = new Thing.Builder()
                 .setName("Search Page") // TODO: Define a title for the content shown.
