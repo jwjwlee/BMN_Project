@@ -10,67 +10,62 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.FrameLayout;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.skp.Tmap.TMapMarkerItem;
-import com.skp.Tmap.TMapPoint;
 import com.skp.Tmap.TMapView;
 
 public class Search extends AppCompatActivity implements LocationListener {
 
     private GoogleApiClient client;
     private GoogleApiClient client2;
+    private TMapView tMapView = null;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
         client2 = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+        setContentView(R.layout.activity_search);
+
     }
 
-    public void ViewMap() {
+    public TMapView ViewMap() {
 
-
-        FrameLayout frameLayout = new FrameLayout(this);
-        TMapView tMapView = new TMapView(this);
-
+        tMapView=new TMapView(this);
         tMapView.setSKPMapApiKey("e17e2369-9a7c-3270-b592-4320bbd3b7e6");
         tMapView.setCompassMode(true);
         tMapView.setIconVisibility(true);
         tMapView.setZoomLevel(15);
         tMapView.setMapType(TMapView.MAPTYPE_STANDARD);
         tMapView.setLanguage(TMapView.LANGUAGE_KOREAN);
-        tMapView.setTrackingMode(true);
-        tMapView.setSightVisible(true);
 
         //현재위치로 초기화
        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         double Longitude , Latitude;
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-            return;
+            return null;
         }
-        if(lm.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+      /*  if(lm.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             lm.requestLocationUpdates(lm.GPS_PROVIDER, 1000, 0, this);
             Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             Latitude = location.getLatitude();
             Longitude = location.getLongitude();
-        }
-        else{
+        }*/
+        //else{
             lm.requestLocationUpdates(lm.NETWORK_PROVIDER,1000 ,0 ,this);
             Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             Latitude = location.getLatitude();
             Longitude = location.getLongitude();
-        }
+        //}
         tMapView.setLocationPoint(Longitude, Latitude);
-        frameLayout.addView(tMapView);
-        setContentView(frameLayout);
-
+        tMapView.setTrackingMode(true);
+        tMapView.setSightVisible(true);
+        //frameLayout.addView(tMapView);
 
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+        return tMapView;
     }
 
 
@@ -102,14 +97,20 @@ public class Search extends AppCompatActivity implements LocationListener {
     }
     //현재위치로 화면을 옮기는 함수.
     public void CurLoc() {
-        FrameLayout frameLayout = new FrameLayout(this);
-        TMapView tMapView = new TMapView(this);
-        TMapMarkerItem tItem = new TMapMarkerItem();
 
-        TMapPoint tpoint = tMapView.getLocationPoint();
-        double Latitude = tpoint.getLatitude();
-        double Longitude = tpoint.getLongitude();
-        tItem.setTMapPoint(tpoint);
+        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        double Longitude , Latitude;
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            return ;
+        }
+        Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        Latitude = location.getLatitude();
+        Longitude = location.getLongitude();
+        tMapView.setCenterPoint(Longitude,Latitude);
+        tMapView.setTrackingMode(true);
+        tMapView.setSightVisible(true);
+
 
 
     }
