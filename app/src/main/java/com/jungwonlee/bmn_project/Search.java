@@ -15,25 +15,28 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.skp.Tmap.TMapData;
+import com.skp.Tmap.TMapPOIItem;
+import com.skp.Tmap.TMapPoint;
 import com.skp.Tmap.TMapView;
+
+import java.util.ArrayList;
 
 public class Search extends AppCompatActivity implements LocationListener {
 
     private GoogleApiClient client;
     private GoogleApiClient client2;
     private TMapView tMapView = null;
-
+    private TMapPoint startPoint = null;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         client2 = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
         setContentView(R.layout.activity_search);
-
     }
 
     public TMapView ViewMap() {
-
-        tMapView=new TMapView(this);
+        tMapView = new TMapView(this);
         tMapView.setSKPMapApiKey("e17e2369-9a7c-3270-b592-4320bbd3b7e6");
         tMapView.setCompassMode(true);
         tMapView.setIconVisibility(true);
@@ -42,9 +45,10 @@ public class Search extends AppCompatActivity implements LocationListener {
         tMapView.setLanguage(TMapView.LANGUAGE_KOREAN);
 
         //현재위치로 초기화
-       LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        double Longitude , Latitude;
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        double Longitude, Latitude;
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return null;
         }
       /*  if(lm.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
@@ -54,31 +58,30 @@ public class Search extends AppCompatActivity implements LocationListener {
             Longitude = location.getLongitude();
         }*/
         //else{
-            lm.requestLocationUpdates(lm.NETWORK_PROVIDER,1000 ,0 ,this);
-            Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            Latitude = location.getLatitude();
-            Longitude = location.getLongitude();
+        lm.requestLocationUpdates(lm.NETWORK_PROVIDER, 1000, 0, this);
+        Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        Latitude = location.getLatitude();
+        Longitude = location.getLongitude();
         //}
         tMapView.setLocationPoint(Longitude, Latitude);
         tMapView.setTrackingMode(true);
         tMapView.setSightVisible(true);
-        //frameLayout.addView(tMapView);
 
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
         return tMapView;
     }
-
 
     //LocationListener
     @Override
     public void onLocationChanged(Location location) {
         LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             return;
         }
-       // lm.removeUpdates(this);
+        // lm.removeUpdates(this);
     }
 
     @Override
@@ -95,26 +98,25 @@ public class Search extends AppCompatActivity implements LocationListener {
     public void onProviderDisabled(String s) {
 
     }
+
     //현재위치로 화면을 옮기는 함수.
     public void CurLoc() {
 
         LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        double Longitude , Latitude;
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        double Longitude, Latitude;
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-            return ;
+            return;
         }
         Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         Latitude = location.getLatitude();
         Longitude = location.getLongitude();
-        tMapView.setCenterPoint(Longitude,Latitude);
+        tMapView.setLocationPoint(Longitude, Latitude);
+        tMapView.setCenterPoint(Longitude, Latitude);
         tMapView.setTrackingMode(true);
         tMapView.setSightVisible(true);
-
-
-
     }
-
 
     public Action getIndexApiAction() {
         Thing object = new Thing.Builder()
@@ -147,4 +149,36 @@ public class Search extends AppCompatActivity implements LocationListener {
         AppIndex.AppIndexApi.end(client2, getIndexApiAction());
         client2.disconnect();
     }
+
+    //출발지 검색 함수
+    public void SearchStartPoint(String point) {
+        TMapData tMapData = new TMapData();
+
+        tMapData.findTitlePOI(point, new TMapData.FindTitlePOIListenerCallback() {
+            @Override
+            public void onFindTitlePOI(ArrayList<TMapPOIItem> arrayList) {
+                if(arrayList.isEmpty());
+                    //Toast.makeText(, "찾을 수 없습니다!", Toast.LENGTH_LONG).show();
+                else {
+                    TMapPOIItem tMapPOIItem = arrayList.get(0);
+                    double latitude = tMapPOIItem.getPOIPoint().getLatitude();
+                    double longtitude = tMapPOIItem.getPOIPoint().getLongitude();
+                    tMapView.setLocationPoint(longtitude, latitude);
+                    tMapView.setCenterPoint(longtitude, latitude);
+                }
+            }
+        });
+        TMapPoint tpoint = tMapView.getLocationPoint();
+        startPoint = tpoint;
+    }
 }
+
+
+
+
+
+
+
+
+
+

@@ -26,7 +26,6 @@ public class navi_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_navi);
         RelativeLayout relativeLayout = new RelativeLayout(this);
         TMapView tMapView = new TMapView(this);
-
         tMapView.setSKPMapApiKey("e17e2369-9a7c-3270-b592-4320bbd3b7e6");
         tMapView.setCompassMode(true);
         tMapView.setIconVisibility(true);
@@ -37,7 +36,6 @@ public class navi_Activity extends AppCompatActivity {
         tMapView.setSightVisible(true);
         relativeLayout.addView(tMapView);
         setContentView(relativeLayout);
-
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
