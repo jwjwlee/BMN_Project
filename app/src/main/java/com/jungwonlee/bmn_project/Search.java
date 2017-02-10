@@ -30,7 +30,6 @@ public class Search extends AppCompatActivity implements LocationListener {
     private TMapPoint startPoint = null;
     private TMapPoint endPoint = null;
 
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         client2 = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
@@ -38,6 +37,7 @@ public class Search extends AppCompatActivity implements LocationListener {
 
     }
 
+    //지도 보여주기
     public TMapView ViewMap() {
         tMapView = new TMapView(this);
         tMapView.setSKPMapApiKey("e17e2369-9a7c-3270-b592-4320bbd3b7e6");
@@ -75,7 +75,6 @@ public class Search extends AppCompatActivity implements LocationListener {
         return tMapView;
     }
 
-
     //LocationListener
     @Override
     public void onLocationChanged(Location location) {
@@ -103,9 +102,9 @@ public class Search extends AppCompatActivity implements LocationListener {
     public void onProviderDisabled(String s) {
 
     }
+
     //현재위치로 화면을 옮기는 함수.
     public void CurLoc() {
-
         LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         double Longitude, Latitude;
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
@@ -120,32 +119,32 @@ public class Search extends AppCompatActivity implements LocationListener {
         tMapView.setCenterPoint(Longitude, Latitude);
         tMapView.setTrackingMode(true);
         tMapView.setSightVisible(true);
-
-
     }
 
     //출발지 검색 함수
     public void SearchStartPoint(String point) {
-        TMapData tMapData = new TMapData();
-
-        tMapData.findTitlePOI(point, new TMapData.FindTitlePOIListenerCallback() {
-            @Override
-            public void onFindTitlePOI(ArrayList<TMapPOIItem> arrayList) {
-                if (arrayList.isEmpty()) ;
-                    //Toast.makeText(, "찾을 수 없습니다!", Toast.LENGTH_LONG).show();
-                else {
-                    TMapPOIItem tMapPOIItem = arrayList.get(0);
-                    double latitude = tMapPOIItem.getPOIPoint().getLatitude();
-                    double longtitude = tMapPOIItem.getPOIPoint().getLongitude();
-                    tMapView.setLocationPoint(longtitude, latitude);
-                    tMapView.setCenterPoint(longtitude, latitude);
+        if(!point.equals("현재위치")) {
+            TMapData tMapData = new TMapData();
+            tMapData.findTitlePOI(point, new TMapData.FindTitlePOIListenerCallback() {
+                @Override
+                public void onFindTitlePOI(ArrayList<TMapPOIItem> arrayList) {
+                    if (arrayList.isEmpty()) ;
+                        //Toast.makeText(, "찾을 수 없습니다!", Toast.LENGTH_LONG).show();
+                    else {
+                        TMapPOIItem tMapPOIItem = arrayList.get(0);
+                        double latitude = tMapPOIItem.getPOIPoint().getLatitude();
+                        double longtitude = tMapPOIItem.getPOIPoint().getLongitude();
+                        tMapView.setLocationPoint(longtitude, latitude);
+                        tMapView.setCenterPoint(longtitude, latitude);
+                    }
                 }
-            }
-        });
+            });
+        }
         TMapPoint tpoint = tMapView.getLocationPoint();
         startPoint = tpoint;
     }
 
+    //도착지 검색 함수
     public void DesSearch(String Des) {
         TMapData tMapData = new TMapData();
         tMapData.findTitlePOI(Des, new TMapData.FindTitlePOIListenerCallback() {
@@ -164,9 +163,7 @@ public class Search extends AppCompatActivity implements LocationListener {
 
         TMapPoint tPoint = tMapView.getLocationPoint();
         endPoint = tPoint;
-
     }
-
 
     public Action getIndexApiAction() {
         Thing object = new Thing.Builder()
@@ -200,5 +197,6 @@ public class Search extends AppCompatActivity implements LocationListener {
         client2.disconnect();
     }
 }
+
 
 
