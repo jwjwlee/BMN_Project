@@ -126,14 +126,20 @@ public class Search extends AppCompatActivity implements LocationListener {
         tMapData.findTitlePOI(Des,new TMapData.FindTitlePOIListenerCallback(){
             @Override
             public void onFindTitlePOI(ArrayList<TMapPOIItem> arrayList) {
-                TMapPOIItem tMapPOIItem = arrayList.get(0);
-                //Log.d("주소로 찾기: " ,"이름: "+tMapPOIItem.getPOIName().toString() +" "+ "주소: "+tMapPOIItem.getPOIPoint().toString() );
-                tMapView.setLocationPoint(tMapPOIItem.getPOIPoint().getLongitude(),tMapPOIItem.getPOIPoint().getLatitude());
-                tMapView.setCenterPoint(tMapPOIItem.getPOIPoint().getLongitude(),tMapPOIItem.getPOIPoint().getLatitude());
+
+               if(arrayList.isEmpty())
+                   ;
+               else {
+                    TMapPOIItem tMapPOIItem = arrayList.get(0);
+                    tMapView.setLocationPoint(tMapPOIItem.getPOIPoint().getLongitude(), tMapPOIItem.getPOIPoint().getLatitude());
+                    tMapView.setCenterPoint(tMapPOIItem.getPOIPoint().getLongitude(), tMapPOIItem.getPOIPoint().getLatitude());
+               }
             }
         });
+
         TMapPoint tPoint = tMapView.getLocationPoint();
         endPoint = tPoint;
+
     }
 
 
