@@ -15,13 +15,19 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.skp.Tmap.TMapData;
+import com.skp.Tmap.TMapPOIItem;
+import com.skp.Tmap.TMapPoint;
 import com.skp.Tmap.TMapView;
+
+import java.util.ArrayList;
 
 public class Search extends AppCompatActivity implements LocationListener {
 
     private GoogleApiClient client;
     private GoogleApiClient client2;
     private TMapView tMapView = null;
+    private TMapPoint endPoint = null;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,12 +113,27 @@ public class Search extends AppCompatActivity implements LocationListener {
         Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         Latitude = location.getLatitude();
         Longitude = location.getLongitude();
+        tMapView.setLocationPoint(Longitude , Latitude);
         tMapView.setCenterPoint(Longitude,Latitude);
         tMapView.setTrackingMode(true);
         tMapView.setSightVisible(true);
 
 
 
+    }
+    public void DesSearch(String Des){
+        TMapData tMapData = new TMapData();
+        tMapData.findTitlePOI(Des,new TMapData.FindTitlePOIListenerCallback(){
+            @Override
+            public void onFindTitlePOI(ArrayList<TMapPOIItem> arrayList) {
+                TMapPOIItem tMapPOIItem = arrayList.get(0);
+                //Log.d("주소로 찾기: " ,"이름: "+tMapPOIItem.getPOIName().toString() +" "+ "주소: "+tMapPOIItem.getPOIPoint().toString() );
+                tMapView.setLocationPoint(tMapPOIItem.getPOIPoint().getLongitude(),tMapPOIItem.getPOIPoint().getLatitude());
+                tMapView.setCenterPoint(tMapPOIItem.getPOIPoint().getLongitude(),tMapPOIItem.getPOIPoint().getLatitude());
+            }
+        });
+        TMapPoint tPoint = tMapView.getLocationPoint();
+        endPoint = tPoint;
     }
 
 
