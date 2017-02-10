@@ -23,34 +23,20 @@ public class frag_search_name extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.frag_search_name, container, false);
         final Search activity = (Search)getActivity();
-
-        final Search activity = (Search) getActivity();
         final Button startButton = (Button) rootView.findViewById(R.id.button5);
         final EditText startText = (EditText) rootView.findViewById(R.id.search1) ;
 
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(startText.getWindowToken(),0);
                 if (startText.length() == 0)
                     Toast.makeText(activity, "출발지를 입력하세요", Toast.LENGTH_LONG).show();
                 else
                     activity.SearchStartPoint(startText.getText().toString());
             }
         });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         Button DesButton = (Button) rootView.findViewById(R.id.button6);
         DesButton.setOnClickListener(new View.OnClickListener(){
@@ -69,6 +55,7 @@ public class frag_search_name extends Fragment {
                 }
             }
         });
+
         return  rootView;
     }
 }

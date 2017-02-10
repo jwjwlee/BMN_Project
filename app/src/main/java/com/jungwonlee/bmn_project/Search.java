@@ -61,10 +61,10 @@ public class Search extends AppCompatActivity implements LocationListener {
             Longitude = location.getLongitude();
         }*/
         //else{
-            lm.requestLocationUpdates(lm.NETWORK_PROVIDER,1000 ,0 ,this);
-            Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            Latitude = location.getLatitude();
-            Longitude = location.getLongitude();
+        lm.requestLocationUpdates(lm.NETWORK_PROVIDER, 1000, 0, this);
+        Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        Latitude = location.getLatitude();
+        Longitude = location.getLongitude();
         //}
         tMapView.setLocationPoint(Longitude, Latitude);
         tMapView.setTrackingMode(true);
@@ -122,7 +122,6 @@ public class Search extends AppCompatActivity implements LocationListener {
         tMapView.setSightVisible(true);
 
 
-
     }
 
     //출발지 검색 함수
@@ -132,7 +131,7 @@ public class Search extends AppCompatActivity implements LocationListener {
         tMapData.findTitlePOI(point, new TMapData.FindTitlePOIListenerCallback() {
             @Override
             public void onFindTitlePOI(ArrayList<TMapPOIItem> arrayList) {
-                if(arrayList.isEmpty());
+                if (arrayList.isEmpty()) ;
                     //Toast.makeText(, "찾을 수 없습니다!", Toast.LENGTH_LONG).show();
                 else {
                     TMapPOIItem tMapPOIItem = arrayList.get(0);
@@ -147,19 +146,19 @@ public class Search extends AppCompatActivity implements LocationListener {
         startPoint = tpoint;
     }
 
-    public void DesSearch(String Des){
+    public void DesSearch(String Des) {
         TMapData tMapData = new TMapData();
-        tMapData.findTitlePOI(Des,new TMapData.FindTitlePOIListenerCallback(){
+        tMapData.findTitlePOI(Des, new TMapData.FindTitlePOIListenerCallback() {
             @Override
             public void onFindTitlePOI(ArrayList<TMapPOIItem> arrayList) {
 
-               if(arrayList.isEmpty())
-                   ;
-               else {
+                if (arrayList.isEmpty())
+                    ;
+                else {
                     TMapPOIItem tMapPOIItem = arrayList.get(0);
                     tMapView.setLocationPoint(tMapPOIItem.getPOIPoint().getLongitude(), tMapPOIItem.getPOIPoint().getLatitude());
                     tMapView.setCenterPoint(tMapPOIItem.getPOIPoint().getLongitude(), tMapPOIItem.getPOIPoint().getLatitude());
-               }
+                }
             }
         });
 
@@ -200,5 +199,6 @@ public class Search extends AppCompatActivity implements LocationListener {
         AppIndex.AppIndexApi.end(client2, getIndexApiAction());
         client2.disconnect();
     }
+}
 
 
