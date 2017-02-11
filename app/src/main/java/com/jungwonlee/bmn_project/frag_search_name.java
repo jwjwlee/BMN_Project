@@ -26,6 +26,15 @@ public class frag_search_name extends Fragment {
         final Button startButton = (Button) rootView.findViewById(R.id.button5);
         final EditText startText = (EditText) rootView.findViewById(R.id.search1) ;
 
+        //출발지 검색창
+        startText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startText.setText("현재위치");
+            }
+        });
+
+        //출발지 버튼
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -33,11 +42,13 @@ public class frag_search_name extends Fragment {
                 imm.hideSoftInputFromWindow(startText.getWindowToken(),0);
                 if (startText.length() == 0)
                     Toast.makeText(activity, "출발지를 입력하세요", Toast.LENGTH_LONG).show();
-                else
+                else {
                     activity.SearchStartPoint(startText.getText().toString());
+                }
             }
         });
 
+        //도착지 버튼
         Button DesButton = (Button) rootView.findViewById(R.id.button6);
         DesButton.setOnClickListener(new View.OnClickListener(){
             @Override

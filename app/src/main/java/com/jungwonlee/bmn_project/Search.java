@@ -18,7 +18,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.skp.Tmap.TMapData;
 import com.skp.Tmap.TMapPOIItem;
 import com.skp.Tmap.TMapPoint;
-import com.skp.Tmap.TMapPolyLine;
 import com.skp.Tmap.TMapView;
 
 import java.util.ArrayList;
@@ -39,6 +38,7 @@ public class Search extends AppCompatActivity implements LocationListener {
 
     }
 
+    //지도 보여주기
     public TMapView ViewMap() {
         tMapView = new TMapView(this);
         tMapView.setSKPMapApiKey("e17e2369-9a7c-3270-b592-4320bbd3b7e6");
@@ -104,6 +104,7 @@ public class Search extends AppCompatActivity implements LocationListener {
     public void onProviderDisabled(String s) {
 
     }
+
     //현재위치로 화면을 옮기는 함수.
     public void CurLoc() {
 
@@ -146,6 +147,7 @@ public class Search extends AppCompatActivity implements LocationListener {
         TMapPoint tpoint = tMapView.getLocationPoint();
         startPoint = tpoint;
     }
+
     //도착지 검색 함수
     public void DesSearch(String Des) {
         TMapData tMapData = new TMapData();
