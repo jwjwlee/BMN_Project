@@ -18,6 +18,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.skp.Tmap.TMapData;
 import com.skp.Tmap.TMapPOIItem;
 import com.skp.Tmap.TMapPoint;
+import com.skp.Tmap.TMapPolyLine;
 import com.skp.Tmap.TMapView;
 
 import java.util.ArrayList;
@@ -145,7 +146,7 @@ public class Search extends AppCompatActivity implements LocationListener {
         TMapPoint tpoint = tMapView.getLocationPoint();
         startPoint = tpoint;
     }
-
+    //도착지 검색 함수
     public void DesSearch(String Des) {
         TMapData tMapData = new TMapData();
         tMapData.findTitlePOI(Des, new TMapData.FindTitlePOIListenerCallback() {
@@ -164,7 +165,16 @@ public class Search extends AppCompatActivity implements LocationListener {
 
         TMapPoint tPoint = tMapView.getLocationPoint();
         endPoint = tPoint;
-
+    }
+    //경로탐색 시작 함수
+    public void PathSearch(){
+        TMapData tMapData = new TMapData();
+        tMapData.findPathDataWithType(TMapData.TMapPathType.BICYCLE_PATH,startPoint, endPoint, new TMapData.FindPathDataListenerCallback() {
+            @Override
+            public void onFindPathData(TMapPolyLine tMapPolyLine) {
+                tMapView.addTMapPath(tMapPolyLine);
+            }
+        });
     }
 
 

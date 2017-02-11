@@ -56,6 +56,8 @@ public class frag_search_name extends Fragment {
             }
         });
 
+
+
         return  rootView;
     }
 }

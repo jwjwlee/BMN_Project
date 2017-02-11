@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
@@ -37,6 +38,13 @@ public class frag_search_map extends Fragment{
                    activity.CurLoc();
                 }
             });
+        Button PathButton = (Button) rootView.findViewById(R.id.startNavi);
+        PathButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                  activity.PathSearch();
+            }
+        });
 
         return  rootView;
     }
