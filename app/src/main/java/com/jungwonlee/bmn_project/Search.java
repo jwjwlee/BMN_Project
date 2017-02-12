@@ -128,22 +128,23 @@ public class Search extends AppCompatActivity implements LocationListener {
 
     //출발지 검색 함수
     public void SearchStartPoint(String point) {
-        TMapData tMapData = new TMapData();
-
-        tMapData.findTitlePOI(point, new TMapData.FindTitlePOIListenerCallback() {
-            @Override
-            public void onFindTitlePOI(ArrayList<TMapPOIItem> arrayList) {
-                if (arrayList.isEmpty()) ;
-                    //Toast.makeText(, "찾을 수 없습니다!", Toast.LENGTH_LONG).show();
-                else {
-                    TMapPOIItem tMapPOIItem = arrayList.get(0);
-                    double latitude = tMapPOIItem.getPOIPoint().getLatitude();
-                    double longtitude = tMapPOIItem.getPOIPoint().getLongitude();
-                    tMapView.setLocationPoint(longtitude, latitude);
-                    tMapView.setCenterPoint(longtitude, latitude);
+        if(!point.equals("현재위치")) {
+            TMapData tMapData = new TMapData();
+            tMapData.findTitlePOI(point, new TMapData.FindTitlePOIListenerCallback() {
+                @Override
+                public void onFindTitlePOI(ArrayList<TMapPOIItem> arrayList) {
+                    if (arrayList.isEmpty()) ;
+                        //Toast.makeText(, "찾을 수 없습니다!", Toast.LENGTH_LONG).show();
+                    else {
+                        TMapPOIItem tMapPOIItem = arrayList.get(0);
+                        double latitude = tMapPOIItem.getPOIPoint().getLatitude();
+                        double longtitude = tMapPOIItem.getPOIPoint().getLongitude();
+                        tMapView.setLocationPoint(longtitude, latitude);
+                        tMapView.setCenterPoint(longtitude, latitude);
+                    }
                 }
-            }
-        });
+            });
+        }
         TMapPoint tpoint = tMapView.getLocationPoint();
         startPoint = tpoint;
     }
