@@ -31,6 +31,7 @@ public class frag_search_name extends Fragment {
             @Override
             public void onClick(View v) {
                 startText.setText("현재위치");
+                startText.setSelection(4);
             }
         });
 

@@ -36,7 +36,6 @@ public class Search extends AppCompatActivity implements LocationListener {
         super.onCreate(savedInstanceState);
         client2 = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
         setContentView(R.layout.activity_search);
-
     }
 
     //지도 보여주기
