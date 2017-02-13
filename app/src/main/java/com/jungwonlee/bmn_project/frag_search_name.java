@@ -64,6 +64,7 @@ public class frag_search_name extends Fragment {
                 }
                 else{
                     activity.DesSearch(s);
+                   // activity.PathSearch();
                 }
             }
         });

@@ -87,7 +87,7 @@ public class Search extends AppCompatActivity implements LocationListener {
 
             return;
         }
-        // lm.removeUpdates(this);
+         lm.removeUpdates(this);
     }
 
     @Override
@@ -141,12 +141,16 @@ public class Search extends AppCompatActivity implements LocationListener {
                         double longtitude = tMapPOIItem.getPOIPoint().getLongitude();
                         tMapView.setLocationPoint(longtitude, latitude);
                         tMapView.setCenterPoint(longtitude, latitude);
+                        startPoint = tMapPOIItem.getPOIPoint();
                     }
                 }
             });
         }
-        TMapPoint tpoint = tMapView.getLocationPoint();
-        startPoint = tpoint;
+        else{
+            TMapPoint tPoint = tMapView.getLocationPoint();
+            startPoint = tPoint;
+        }
+
     }
 
     //도착지 검색 함수
@@ -162,12 +166,13 @@ public class Search extends AppCompatActivity implements LocationListener {
                     TMapPOIItem tMapPOIItem = arrayList.get(0);
                     tMapView.setLocationPoint(tMapPOIItem.getPOIPoint().getLongitude(), tMapPOIItem.getPOIPoint().getLatitude());
                     tMapView.setCenterPoint(tMapPOIItem.getPOIPoint().getLongitude(), tMapPOIItem.getPOIPoint().getLatitude());
+                    endPoint = tMapPOIItem.getPOIPoint();
                 }
             }
         });
 
-        TMapPoint tPoint = tMapView.getLocationPoint();
-        endPoint = tPoint;
+        //TMapPoint tPoint = tMapView.getLocationPoint();
+        //endPoint = tPoint;
     }
     //경로탐색 시작 함수
     public void PathSearch(){
@@ -175,6 +180,7 @@ public class Search extends AppCompatActivity implements LocationListener {
         tMapData.findPathDataWithType(TMapData.TMapPathType.BICYCLE_PATH,startPoint, endPoint, new TMapData.FindPathDataListenerCallback() {
             @Override
             public void onFindPathData(TMapPolyLine tMapPolyLine) {
+                tMapView.setLocationPoint(startPoint.getLongitude() , startPoint.getLatitude());
                 tMapView.addTMapPath(tMapPolyLine);
             }
         });
