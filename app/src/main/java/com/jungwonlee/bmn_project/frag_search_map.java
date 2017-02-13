@@ -37,12 +37,21 @@ public class frag_search_map extends Fragment{
                 public void onClick(View v) {
                    activity.CurLoc();
                 }
-            });
-        Button PathButton = (Button) rootView.findViewById(R.id.startNavi);
+        });
+
+        Button PathButton = (Button) rootView.findViewById(R.id.button4);
         PathButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                  activity.PathSearch();
+                activity.PathSearch();
+            }
+        });
+
+        Button startNaviButton = (Button) rootView.findViewById(R.id.startNavi);
+        startNaviButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                //activity.PathSearch();
             }
         });
 

@@ -170,9 +170,6 @@ public class Search extends AppCompatActivity implements LocationListener {
                 }
             }
         });
-
-        //TMapPoint tPoint = tMapView.getLocationPoint();
-        //endPoint = tPoint;
     }
     //경로탐색 시작 함수
     public void PathSearch(){
