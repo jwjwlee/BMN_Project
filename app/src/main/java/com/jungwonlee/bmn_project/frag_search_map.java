@@ -51,7 +51,7 @@ public class frag_search_map extends Fragment{
         startNaviButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //activity.PathSearch();
+                activity.NaviMode();
             }
         });
 

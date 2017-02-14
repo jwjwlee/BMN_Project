@@ -87,7 +87,9 @@ public class Search extends AppCompatActivity implements LocationListener {
 
             return;
         }
-         lm.removeUpdates(this);
+        tMapView.setLocationPoint(location.getLongitude(),location.getLatitude());
+        tMapView.setCenterPoint(location.getLongitude() , location.getLatitude());
+        // lm.removeUpdates(this);
     }
 
     @Override
@@ -182,11 +184,14 @@ public class Search extends AppCompatActivity implements LocationListener {
             }
         });
     }
-
+    //네비게이션 모드
+    public void NaviMode(){
+        tMapView.setMapPosition(TMapView.POSITION_NAVI);
+    }
 
     public Action getIndexApiAction() {
         Thing object = new Thing.Builder()
-                .setName("Search Page") // TODO: Define a title for the content shown.
+                .setName("Search Page") // TODO: Define a itle for the content shown.
                 // TODO: Make sure this auto-generated URL is correct.
                 .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
                 .build();
