@@ -31,7 +31,6 @@ public class Search extends AppCompatActivity implements LocationListener {
     private TMapPoint startPoint = null;
     private TMapPoint endPoint = null;
 
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         client2 = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
@@ -75,7 +74,6 @@ public class Search extends AppCompatActivity implements LocationListener {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
         return tMapView;
     }
-
 
     //LocationListener
     @Override
@@ -124,8 +122,7 @@ public class Search extends AppCompatActivity implements LocationListener {
         tMapView.setCenterPoint(Longitude, Latitude);
         tMapView.setTrackingMode(true);
         tMapView.setSightVisible(true);
-
-
+        tMapView.setCompassMode(true);
     }
 
     //출발지 검색 함수
@@ -173,6 +170,7 @@ public class Search extends AppCompatActivity implements LocationListener {
             }
         });
     }
+
     //경로탐색 시작 함수
     public void PathSearch(){
         TMapData tMapData = new TMapData();
@@ -186,6 +184,8 @@ public class Search extends AppCompatActivity implements LocationListener {
     }
     //네비게이션 모드
     public void NaviMode(){
+        tMapView.MapZoomIn();
+        tMapView.MapZoomIn();
         tMapView.setMapPosition(TMapView.POSITION_NAVI);
     }
 
